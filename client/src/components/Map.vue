@@ -76,11 +76,16 @@
         this.$data.communicating = true
         const id = this.$route.params.id
         this.$data.map = (await axios.get(`/api/maps/${id}`)).data
-        this.$data.labels = (await axios.get('/api/labels/')).data
+        this.$data.labels = (await axios.get('/api/labels/', {
+          params: {
+            map_id: id
+          }
+        })).data
         this.$data.communicating = false
       },
       async addLabel (event) {
         const label = {
+          map: this.$data.map.id,
           x: event.offsetX,
           y: event.offsetY,
           text: '',

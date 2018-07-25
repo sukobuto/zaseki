@@ -35,6 +35,7 @@ class Label(models.Model):
     )
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    map = models.ForeignKey(Map, on_delete=models.CASCADE, related_name='labels')
     x = models.IntegerField()
     y = models.IntegerField()
     text = models.CharField(max_length=255, blank=True)

@@ -13,6 +13,7 @@ gunicorn = "*"
 django-environ = "*"
 whitenoise = "*"
 "psycopg2-binary" = "*"
+django-basicauth = "*"
 
 [dev-packages]
 ipython = "*"
