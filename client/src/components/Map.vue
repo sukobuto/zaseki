@@ -6,6 +6,9 @@
       </v-btn>
       <v-toolbar-title v-text="map.name"></v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-btn icon @click="reload">
+        <v-icon>refresh</v-icon>
+      </v-btn>
     </v-toolbar>
 
     <div class="map-area"
