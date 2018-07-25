@@ -1,12 +1,12 @@
 <template>
   <v-container fluid>
-    <v-toolbar app>
+    <v-toolbar app dense>
       <v-btn icon to="/">
         <v-icon>arrow_back</v-icon>
       </v-btn>
       <v-toolbar-title v-text="map.name"></v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon @click="reload">
+      <v-btn icon @click="reload" :loading="communicating">
         <v-icon>refresh</v-icon>
       </v-btn>
     </v-toolbar>

@@ -146,7 +146,7 @@ STATICFILES_DIRS = (
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 BASICAUTH_USERS = {
-    'zaseki': env.str('BASIC_PASSWORD')
+    env.str('BASIC_USERNAME'): env.str('BASIC_PASSWORD')
 }
 
 REST_FRAMEWORK = {

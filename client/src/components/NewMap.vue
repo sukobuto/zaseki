@@ -1,16 +1,12 @@
 <template>
   <v-container fluid>
-    <v-toolbar app>
+    <v-toolbar app dense>
       <v-btn icon to="/">
         <v-icon>arrow_back</v-icon>
       </v-btn>
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
     </v-toolbar>
-    <v-breadcrumbs divider="/">
-      <v-breadcrumbs-item to="/">座席表</v-breadcrumbs-item>
-      <v-breadcrumbs-item to="/new">新規追加</v-breadcrumbs-item>
-    </v-breadcrumbs>
 
     <v-form>
       <v-text-field

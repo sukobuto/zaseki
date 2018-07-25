@@ -58,7 +58,8 @@
         fakeElement.css('font-size', _size.fontSize)
         let width = fakeElement.width()
         if (width < 30) {
-          width = 30
+          // noinspection JSSuspiciousNameCombination
+          width = _size.height
         }
         return {
           width: width + 'px',

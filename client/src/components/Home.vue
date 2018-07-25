@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-toolbar app>
+    <v-toolbar app dense>
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn color="primary" to="/new">
