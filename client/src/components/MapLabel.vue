@@ -57,12 +57,12 @@
         fakeElement.text(label.text)
         fakeElement.css('font-size', _size.fontSize)
         let width = fakeElement.width()
-        if (width < 30) {
+        if (width < _size.height) {
           // noinspection JSSuspiciousNameCombination
           width = _size.height
         }
         return {
-          width: width + 'px',
+          width: (+width + 4) + 'px',
           height: _size.height + 'px',
           fontSize: _size.fontSize
         }
@@ -125,6 +125,7 @@
   input {
     font-weight: bold;
     color: blue;
+    padding: 0 2px;
   }
   .control-container {
     position: absolute;
