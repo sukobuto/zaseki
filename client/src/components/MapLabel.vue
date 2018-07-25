@@ -4,8 +4,22 @@
            :style="size"
            v-model="label.text"
            ref="input"
+           @focus="onFocus"
            @blur="onBlur"
            @change="onChange">
+    <div class="control-container" v-show="hasFocus" @mousedown="focus">
+      <v-btn-toggle v-model="sizeNum" mandatory>
+        <v-btn flat>
+          S
+        </v-btn>
+        <v-btn flat>
+          M
+        </v-btn>
+        <v-btn flat>
+          L
+        </v-btn>
+      </v-btn-toggle>
+    </div>
   </div>
 </template>
 
@@ -13,23 +27,35 @@
   import $ from 'jquery'
 
   const sizes = {
-    L: {fontSize: '1.2em', height: 24},
-    M: {fontSize: '1.0em', height: 20},
-    S: {fontSize: '0.8em', height: 16}
+    L: {fontSize: '20px', height: 24},
+    M: {fontSize: '14px', height: 20},
+    S: {fontSize: '10px', height: 16}
   }
+  const sizeDict = ['S', 'M', 'L']
 
   export default {
     name: 'MapLabel',
     props: ['label'],
+    data: () => ({
+      hasFocus: false,
+      prependBlur: false
+    }),
     computed: {
+      sizeNum: {
+        get () {
+          return sizeDict.indexOf(this.$props.label.size)
+        },
+        set (v) {
+          this.$props.label.size = sizeDict[v]
+        }
+      },
       size () {
         const label = this.$props.label
         const _size = sizes[label.size]
 
         const fakeElement = $('#fakeEl')
         fakeElement.text(label.text)
-        fakeElement.css('font-size', _size['font-size'])
-        fakeElement.css(fakeElement.css('font'))
+        fakeElement.css('font-size', _size.fontSize)
         let width = fakeElement.width()
         if (width < 30) {
           width = 30
@@ -52,15 +78,35 @@
       }
     },
     methods: {
+      focus () {
+        this.$refs.input.focus()
+        this.prependBlur = true
+      },
+      onFocus () {
+        this.$data.hasFocus = true
+      },
       onBlur () {
-        if (this.$props.label.text === '') {
-          this.$emit('apoptosis')
-        }
+        setTimeout(() => {
+          if (this.$data.prependBlur) {
+            this.$data.prependBlur = false
+            this.$refs.input.focus()
+            return
+          }
+          this.$data.hasFocus = false
+          if (this.$props.label.text === '') {
+            this.$emit('apoptosis')
+          }
+        }, 50)
       },
       onChange () {
         if (this.$props.label.text !== '') {
           this.$emit('change')
         }
+      }
+    },
+    watch: {
+      'label.size': function () {
+        this.$emit('change')
       }
     },
     mounted () {
@@ -78,5 +124,11 @@
   input {
     font-weight: bold;
     color: blue;
+  }
+  .control-container {
+    position: absolute;
+    top: -40px;
+    left: 0px;
+    width: 200px;
   }
 </style>
