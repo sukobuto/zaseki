@@ -6,9 +6,9 @@
       </v-btn>
       <v-toolbar-title v-text="map.name"></v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn :to="`/map/${map.id}/change-image`">
+      <v-btn :to="`/map/${map.id}/change-image`" flat>
         <v-icon>image</v-icon>
-        画像を差し替え
+        画像を差し替える
       </v-btn>
       <v-btn icon @click="reload" :loading="communicating">
         <v-icon>refresh</v-icon>
@@ -18,7 +18,9 @@
     <div class="map-area"
          :style="mapAreaStyle"
          :class="{ wait: communicating }"
-         @dblclick="addLabel">
+         @dblclick="addLabel"
+         ref="mapArea"
+         tabindex="0">
       <map-label v-for="label in labels"
                  :key="label.id"
                  :label="label"
@@ -96,6 +98,7 @@
     },
     async mounted () {
       await this.reload()
+      this.$refs.mapArea.focus()
     }
   }
 </script>

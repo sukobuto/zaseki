@@ -1,5 +1,5 @@
 <template>
-  <v-card color="teal lighten-4">
+  <v-card color="primary" dark raised>
     <v-card-media
       :src="map.image_url"
       height="200px"
@@ -12,21 +12,14 @@
       </div>
     </v-card-title>
 
+    <v-divider light></v-divider>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn :to="mapUrl">
-        <v-icon>forward</v-icon>
-        開く
-      </v-btn>
       <v-dialog
         v-model="dialog"
         width="500"
       >
-        <v-btn
-          slot="activator"
-          color="red lighten-2"
-          dark
-        >
+        <v-btn flat slot="activator">
           <v-icon>delete</v-icon>
           削除
         </v-btn>
@@ -65,6 +58,10 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
+      <v-btn :to="mapUrl">
+        <v-icon>forward</v-icon>
+        開く
+      </v-btn>
     </v-card-actions>
   </v-card>
 </template>
