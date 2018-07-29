@@ -43,9 +43,6 @@
     methods: {
       async reload () {
         this.$data.loading = true
-        await new Promise(resolve => {
-          setTimeout(() => resolve(), 2000)
-        })
         const res = await axios.get('/api/maps/?ordering=-created_at')
         this.$data.maps = res.data
         this.$data.loading = false
