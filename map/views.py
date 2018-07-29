@@ -59,6 +59,7 @@ def map_image(request, map_id):
 class MapViewSet(ModelViewSet):
     queryset = Map.objects.all()
     serializer_class = MapSerializer
+    ordering_fields = '__all__'
 
     @action(methods=['put'], detail=True)
     def change_image(self, request, pk=None):
@@ -78,3 +79,4 @@ class LabelViewSet(ModelViewSet):
     queryset = Label.objects.all()
     serializer_class = LabelSerializer
     filter_fields = ('map_id', 'size')
+    ordering_fields = '__all__'
