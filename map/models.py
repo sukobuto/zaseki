@@ -21,6 +21,14 @@ class Map(models.Model):
     def get_image_pil(self):
         return Image.open(BytesIO(self.image))
 
+    @property
+    def image_url(self):
+        types = {
+            'image/jpeg': '.jpg',
+            'image/png': '.png',
+        }
+        return f'/image/map/{self.id}{types[self.content_type]}'
+
 
 class Label(models.Model):
 

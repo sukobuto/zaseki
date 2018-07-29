@@ -1,7 +1,7 @@
 <template>
   <v-card color="teal lighten-4">
     <v-card-media
-      :src="imageUrl"
+      :src="map.image_url"
       height="200px"
     >
     </v-card-media>
@@ -77,9 +77,6 @@
       dialog: false
     }),
     computed: {
-      imageUrl () {
-        return `/image/map/${this.$props.map.id}.jpg`
-      },
       mapUrl () {
         return `/map/${this.$props.map.id}`
       }

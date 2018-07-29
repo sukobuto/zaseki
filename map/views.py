@@ -5,8 +5,8 @@ from basicauth.decorators import basic_auth_required
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
+from rest_framework.decorators import action
 from rest_framework.parsers import MultiPartParser, FormParser
-from rest_framework.permissions import AllowAny
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
@@ -59,6 +59,19 @@ def map_image(request, map_id):
 class MapViewSet(ModelViewSet):
     queryset = Map.objects.all()
     serializer_class = MapSerializer
+
+    @action(methods=['put'], detail=True)
+    def change_image(self, request, pk=None):
+        map = get_object_or_404(Map, pk=pk)
+        image_file: InMemoryUploadedFile = request.data['image']
+        image_bytes = image_file.read()
+        image: Image = Image.open(BytesIO(image_bytes))
+        map.image = image_bytes
+        map.content_type = image_file.content_type
+        map.width = image.width
+        map.height = image.height
+        map.save()
+        return Response(MapSerializer(map).data, status=200)
 
 
 class LabelViewSet(ModelViewSet):

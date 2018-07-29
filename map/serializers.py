@@ -15,6 +15,11 @@ class MapSerializer(serializers.ModelSerializer):
             'updated_at',
         )
 
+    def to_representation(self, instance):
+        ret = super().to_representation(instance)
+        ret['image_url'] = instance.image_url
+        return ret
+
 
 class LabelSerializer(serializers.ModelSerializer):
     class Meta:

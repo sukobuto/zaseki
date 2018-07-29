@@ -6,6 +6,10 @@
       </v-btn>
       <v-toolbar-title v-text="map.name"></v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-btn :to="`/map/${map.id}/change-image`">
+        <v-icon>image</v-icon>
+        画像を差し替え
+      </v-btn>
       <v-btn icon @click="reload" :loading="communicating">
         <v-icon>refresh</v-icon>
       </v-btn>
@@ -30,26 +34,6 @@
   import axios from 'axios'
   import MapLabel from './MapLabel'
 
-  /**
-   * generate UUID v4 (RFC4122 compliant)
-   * @returns {string}
-   * @see https://gist.github.com/jcxplorer/823878
-   */
-  export function uuid () {
-    let uuid = ''
-    let i
-    let random
-    for (i = 0; i < 32; i++) {
-      random = Math.random() * 16 | 0
-
-      if (i === 8 || i === 12 || i === 16 || i === 20) {
-        uuid += '-'
-      }
-      uuid += (i === 12 ? 4 : (i === 16 ? (random & 3 | 8) : random)).toString(16)
-    }
-    return uuid
-  }
-
   export default {
     name: 'Map',
     components: {
@@ -68,7 +52,7 @@
         const map = this.$data.map
         if (!map.id) return {}
         return {
-          'background': `url(/image/map/${map.id}.jpg)`,
+          'background': `url(${map.image_url})`,
           'width': map.width + 'px',
           'height': map.height + 'px'
         }
