@@ -17,7 +17,8 @@ class MapSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         ret = super().to_representation(instance)
-        ret['image_url'] = instance.image_url
+        v = instance.updated_at.strftime('%Y%m%d%H%M%S%f%Z')
+        ret['image_url'] = instance.image_url + f'?v={v}'
         return ret
 
 
